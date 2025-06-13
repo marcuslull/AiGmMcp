@@ -1,10 +1,17 @@
 package com.marcuslull.aigmmcp.config;
 
+import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
+import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.ai.vertexai.embedding.VertexAiEmbeddingConnectionDetails;
 import org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingModel;
 import org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class BeanStore {
@@ -34,5 +41,10 @@ public class BeanStore {
                 .build();
 
         return new VertexAiTextEmbeddingModel(connectionDetails, options);
+    }
+
+    @Bean
+    public ToolCallbackProvider diceRollerTool(DiceRollerService diceRollerService) {
+        return MethodToolCallbackProvider.builder().toolObjects(diceRollerService).build();
     }
 }
