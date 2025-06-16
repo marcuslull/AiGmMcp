@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Configuration
 public class BeanStore {
@@ -46,5 +47,10 @@ public class BeanStore {
     @Bean
     public ToolCallbackProvider diceRollerTool(DiceRollerService diceRollerService) {
         return MethodToolCallbackProvider.builder().toolObjects(diceRollerService).build();
+    }
+
+    @Bean
+    public Random random() {
+        return new Random();
     }
 }
