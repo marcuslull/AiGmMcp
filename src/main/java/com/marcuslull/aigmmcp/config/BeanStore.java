@@ -1,6 +1,7 @@
 package com.marcuslull.aigmmcp.config;
 
 import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
+import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorService;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
@@ -47,6 +48,11 @@ public class BeanStore {
     @Bean
     public ToolCallbackProvider diceRollerTool(DiceRollerService diceRollerService) {
         return MethodToolCallbackProvider.builder().toolObjects(diceRollerService).build();
+    }
+
+    @Bean
+    public ToolCallbackProvider treasureGeneratorTool(TreasureGeneratorService treasureGeneratorService) {
+        return MethodToolCallbackProvider.builder().toolObjects(treasureGeneratorService).build();
     }
 
     @Bean
