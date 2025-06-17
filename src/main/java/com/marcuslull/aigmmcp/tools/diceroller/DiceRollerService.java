@@ -1,5 +1,6 @@
 package com.marcuslull.aigmmcp.tools.diceroller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Slf4j
 @Service
 public class DiceRollerService {
 
@@ -20,15 +22,16 @@ public class DiceRollerService {
     @Tool(name = "rollDice", description = "Roll some dice by specifying count and die type")
     public DiceRollResult rollDice(DiceRoll diceRoll) {
 
+        log.info("New dice roll: {}", diceRoll);
+
         // TODO logic - Jackson error message on conversion failure
 
         List<Integer> rolls = new ArrayList<>();
         int total = 0;
-        String error = null;
 
         if (diceRoll == null || diceRoll.diceType() == null || diceRoll.quantity() <= 0) {
-            error = "You must provide a valid dice roll";
-            return new DiceRollResult(diceRoll, rolls, total, error);
+            log.warn("invalid dice roll: {}", diceRoll);
+            return new DiceRollResult(diceRoll, rolls, total, "You must provide a valid dice roll");
         }
 
         for (int i = 0; i < diceRoll.quantity(); i++) {
@@ -37,7 +40,8 @@ public class DiceRollerService {
             total += roll;
         }
 
-        return new DiceRollResult(diceRoll, rolls, total, error);
+        log.info("Dice roll result: {} = {}", rolls, total);
+        return new DiceRollResult(diceRoll, rolls, total, null);
     }
 
 }
