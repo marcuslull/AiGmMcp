@@ -20,6 +20,29 @@ public class CsvParserService {
     private Map<Integer, List<String>> treasureTable;
 
 
+    /**
+     * Retrieves the treasure table, parsing it from a CSV file if not already loaded.
+     * <p>
+     * This method implements a lazy loading pattern. On the first call, it reads the
+     * CSV file specified by {@code TREASURE_TABLE_PATH}, parses its content, and stores
+     * it in an internal {@code treasureTable} map. Subsequent calls will return the cached map
+     * directly without re-parsing the file.
+     * <p>
+     * The CSV file is expected to have a specific format:
+     * <ul>
+     *     <li>It must contain exactly 11 lines. The first line is assumed to be a header and is skipped.</li>
+     *     <li>Each subsequent line (10 data lines) must contain 8 comma-separated values.</li>
+     *     <li>The first value on each data line is an integer representing a "level".</li>
+     *     <li>The remaining 7 values on each data line are strings representing "disposition".</li>
+     * </ul>
+     * If the file is not found, is malformed (e.g., incorrect number of lines or columns per line),
+     * or any other {@link Exception} occurs during parsing, an error is logged, and this method
+     * returns {@code null}. The table is only cached if parsing is entirely successful.
+     *
+     * @return A {@code Map<Integer, List<String>>} where the key is the treasure level (integer)
+     *         and the value is a list of disposition strings. Returns {@code null} if the
+     *         CSV file cannot be parsed successfully or if an error occurs.
+     */
     public Map<Integer, List<String>> getTreasureTable() {
 
         if (treasureTable != null) return treasureTable;
