@@ -84,6 +84,30 @@ public class CsvParserService {
         return this.treasureTable;
     }
 
+
+    /**
+     * Retrieves the XP budget per character table, parsing it from a CSV file if not already loaded.
+     * <p>
+     * This method implements a lazy loading pattern. On the first call, it reads the
+     * CSV file specified by {@code XP_BUDGET_PER_CHAR_TABLE_PATH}, parses its content, and stores
+     * it in an internal {@code xpBudgetPerCharTable} map. Subsequent calls will return the cached map
+     * directly without re-parsing the file.
+     * <p>
+     * The CSV file is expected to have a specific format:
+     * <ul>
+     *     <li>It must contain exactly 21 lines. The first line is assumed to be a header and is skipped.</li>
+     *     <li>Each subsequent line (20 data lines) must contain 4 comma-separated values.</li>
+     *     <li>The first value on each data line is an integer representing the "PC Level".</li>
+     *     <li>The remaining 3 values on each data line are strings representing XP thresholds for "Low", "Moderate", and "High" difficulty encounters.</li>
+     * </ul>
+     * If the file is not found, is malformed (e.g., incorrect number of lines or columns per line),
+     * or any other {@link Exception} occurs during parsing, an error is logged, and this method
+     * returns {@code null}. The table is only cached if parsing is entirely successful.
+     *
+     * @return A {@code Map<Integer, List<String>>} where the key is the PC Level (integer)
+     *         and the value is a list of strings representing XP budget thresholds for different difficulties.
+     *         Returns {@code null} if the CSV file cannot be parsed successfully or if an error occurs.
+     */
     public Map<Integer, List<String>> getXpBudgetPerCharTable() {
 
         if (xpBudgetPerCharTable != null) return xpBudgetPerCharTable;
@@ -122,6 +146,30 @@ public class CsvParserService {
         return this.xpBudgetPerCharTable;
     }
 
+
+    /**
+     * Retrieves the XP by Challenge Rating (CR) table, parsing it from a CSV file if not already loaded.
+     * <p>
+     * This method implements a lazy loading pattern. On the first call, it reads the
+     * CSV file specified by {@code XP_BY_CR_TABLE_PATH}, parses its content, and stores
+     * it in an internal {@code xpByCrTable} map. Subsequent calls will return the cached map
+     * directly without re-parsing the file.
+     * <p>
+     * The CSV file is expected to have a specific format:
+     * <ul>
+     *     <li>It must contain exactly 31 lines. The first line is assumed to be a header and is skipped.</li>
+     *     <li>Each subsequent line (30 data lines) must contain 2 comma-separated values.</li>
+     *     <li>The first value on each data line is an integer representing the "CR" (Challenge Rating).</li>
+     *     <li>The second value on each data line is an integer representing the "XP" (Experience Points) for that CR.</li>
+     * </ul>
+     * If the file is not found, is malformed (e.g., incorrect number of lines or columns per line),
+     * or any other {@link Exception} occurs during parsing, an error is logged, and this method
+     * returns {@code null}. The table is only cached if parsing is entirely successful.
+     *
+     * @return A {@code Map<Integer, Integer>} where the key is the Challenge Rating (CR) and
+     *         the value is the corresponding XP. Returns {@code null} if the CSV file
+     *         cannot be parsed successfully or if an error occurs.
+     */
     public Map<Integer, Integer> getXpByCrTable() {
 
         if (xpByCrTable != null) return xpByCrTable;
