@@ -2,7 +2,6 @@ package com.marcuslull.aigmmcp.config;
 
 import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
 import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorService;
-import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.ai.vertexai.embedding.VertexAiEmbeddingConnectionDetails;
@@ -11,8 +10,6 @@ import org.springframework.ai.vertexai.embedding.text.VertexAiTextEmbeddingOptio
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 @Configuration
