@@ -1,5 +1,6 @@
-package com.marcuslull.aigmmcp.vector;
+package com.marcuslull.aigmmcp.data.vector;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ai.document.Document;
@@ -19,10 +20,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 
+@Slf4j
 @Service
 public class VectorIngestion {
-
-    private static final Logger logger = LoggerFactory.getLogger(VectorIngestion.class);
 
     private final String PATH = "classpath:ingestion/";
 
@@ -58,13 +58,13 @@ public class VectorIngestion {
      */
     public void ingest(String documentName, int sessionNumber, String tag) {
 
-        logger.info("Attempting to load resource from: {}", PATH + documentName);
+        log.info("Attempting to load resource from: {}", PATH + documentName);
         Resource resource = resourceLoader.getResource(PATH + documentName);
         if (!resource.exists()) {
-            logger.error("Ingestion resource not found: {}", PATH + documentName);
+            log.error("Ingestion resource not found: {}", PATH + documentName);
             return;
         }
-        logger.info("Successfully loaded resource: {}", PATH + documentName);
+        log.info("Successfully loaded resource: {}", PATH + documentName);
 
         TikaDocumentReader reader = new TikaDocumentReader(resource); // reads the document (resource) from original format
         TextSplitter textSplitter = new TokenTextSplitter(); // splits document into manageable chunks for the embedding model
@@ -77,18 +77,18 @@ public class VectorIngestion {
 
         List<Document> fromSplitter = textSplitter.apply(reader.get());
         if (fromSplitter.isEmpty()) {
-            logger.warn("No documents extracted by TikaDocumentReader from: {}", resource.getFilename());
+            log.warn("No documents extracted by TikaDocumentReader from: {}", resource.getFilename());
             return;
         }
 
-        logger.info("Adding custom metadata to extracted resource: {}", resource.getFilename());
+        log.info("Adding custom metadata to extracted resource: {}", resource.getFilename());
         List<Document> fromMetadataAdder = addCustomMetadata(metadata, fromSplitter); // adds our custom metadata
 
         try {
             vectorStore.accept(fromMetadataAdder); // saves our ingested document as vector embeddings to the vector db
-            logger.info("Successfully embedded resource: {}", PATH + documentName);
+            log.info("Successfully embedded resource: {}", PATH + documentName);
         } catch (Exception e) {
-            logger.error("Failed to ingest resource: {}", resource.getFilename(),  e);
+            log.error("Failed to ingest resource: {}", resource.getFilename(),  e);
         }
     }
 

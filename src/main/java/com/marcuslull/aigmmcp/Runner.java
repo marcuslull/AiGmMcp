@@ -1,12 +1,8 @@
 package com.marcuslull.aigmmcp;
 
-import com.marcuslull.aigmmcp.tools.diceroller.DiceRoll;
 import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
-import com.marcuslull.aigmmcp.tools.diceroller.DiceType;
-import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureDisposition;
-import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorQuery;
 import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorService;
-import com.marcuslull.aigmmcp.vector.VectorIngestion;
+import com.marcuslull.aigmmcp.data.vector.VectorIngestion;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
