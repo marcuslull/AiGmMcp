@@ -4,12 +4,15 @@ import com.marcuslull.aigmmcp.data.csv.CsvParserService;
 import com.marcuslull.aigmmcp.data.structured.repositories.Srd521MonsterCrRepository;
 import com.marcuslull.aigmmcp.data.vector.VectorIngestion;
 import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
+import com.marcuslull.aigmmcp.tools.randomencountergenerator.EncounterDifficulty;
+import com.marcuslull.aigmmcp.tools.randomencountergenerator.EncounterGenerationQuery;
+import com.marcuslull.aigmmcp.tools.randomencountergenerator.EncounterGenerationResult;
+import com.marcuslull.aigmmcp.tools.randomencountergenerator.RandomEncounterGeneratorService;
 import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Map;
 
 
 @Component
@@ -20,13 +23,15 @@ public class Runner implements CommandLineRunner {
     private final CsvParserService csvParserService;
     private final TreasureGeneratorService treasureGeneratorService;
     private final Srd521MonsterCrRepository srd521MonsterCrRepository;
+    private final RandomEncounterGeneratorService randomEncounterGeneratorService;
 
-    public Runner(VectorIngestion vectorIngestion, DiceRollerService diceRollerService, CsvParserService csvParserService, TreasureGeneratorService treasureGeneratorService, Srd521MonsterCrRepository srd521MonsterCrRepository) {
+    public Runner(VectorIngestion vectorIngestion, DiceRollerService diceRollerService, CsvParserService csvParserService, TreasureGeneratorService treasureGeneratorService, Srd521MonsterCrRepository srd521MonsterCrRepository, RandomEncounterGeneratorService randomEncounterGeneratorService) {
         this.vectorIngestion = vectorIngestion;
         this.diceRollerService = diceRollerService;
         this.csvParserService = csvParserService;
         this.treasureGeneratorService = treasureGeneratorService;
         this.srd521MonsterCrRepository = srd521MonsterCrRepository;
+        this.randomEncounterGeneratorService = randomEncounterGeneratorService;
     }
 
     @Override
@@ -40,9 +45,12 @@ public class Runner implements CommandLineRunner {
 //        List<Srd521MonsterCr> srd521MonsterCrs = srd521MonsterCrRepository.findAllByCr(1);
 //        System.out.println("srd521MonsterCrs = " + srd521MonsterCrs);
 
-        Map<Integer, Integer> xpByCrTable = csvParserService.getXpByCrTable();
-        System.out.println("xpByCrTable = " + xpByCrTable);
-        Map<Integer, List<String>> xpBudgetPerCharTable = csvParserService.getXpBudgetPerCharTable();
-        System.out.println("xpBudgetPerCharTable = " + xpBudgetPerCharTable);
+//        Map<Integer, Integer> xpByCrTable = csvParserService.getXpByCrTable();
+//        System.out.println("xpByCrTable = " + xpByCrTable);
+//        Map<Integer, List<String>> xpBudgetPerCharTable = csvParserService.getXpBudgetPerCharTable();
+//        System.out.println("xpBudgetPerCharTable = " + xpBudgetPerCharTable);
+
+        EncounterGenerationResult encounterGenerationResult = randomEncounterGeneratorService.generateEncounter(new EncounterGenerationQuery(List.of(5,4,9,8), EncounterDifficulty.H));
+        System.out.println("encounterGenerationResult = " + encounterGenerationResult);
     }
 }

@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS Srd521MonsterCr;
 DROP TABLE IF EXISTS srd521monstercr;
 
 CREATE TABLE srd521monstercr (

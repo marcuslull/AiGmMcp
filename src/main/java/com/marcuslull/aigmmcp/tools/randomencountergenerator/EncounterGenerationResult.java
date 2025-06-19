@@ -6,7 +6,7 @@ public record EncounterGenerationResult(
         EncounterGenerationQuery encounterGenerationQuery,
         Integer totalPartyBudget,
         List<Integer> encounterCRs,
-        List<String> monstersByCR,
+        java.util.Map<Integer, List<String>> monstersByCR,
         String error
 ) {
 }

@@ -1,6 +1,7 @@
 package com.marcuslull.aigmmcp.config;
 
 import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
+import com.marcuslull.aigmmcp.tools.randomencountergenerator.RandomEncounterGeneratorService;
 import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorService;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
@@ -50,6 +51,11 @@ public class BeanStore {
     @Bean
     public ToolCallbackProvider treasureGeneratorTool(TreasureGeneratorService treasureGeneratorService) {
         return MethodToolCallbackProvider.builder().toolObjects(treasureGeneratorService).build();
+    }
+
+    @Bean
+    public ToolCallbackProvider randomEncounterGeneratorTool(RandomEncounterGeneratorService randomEncounterGeneratorService) {
+        return MethodToolCallbackProvider.builder().toolObjects(randomEncounterGeneratorService).build();
     }
 
     @Bean
