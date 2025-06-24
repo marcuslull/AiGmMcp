@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 public class VectorIngestion {
 
+    // TODO: Documentation probably should live in cloud storage
     private final String PATH = "classpath:ingestion/";
 
     private final VectorStore vectorStore;

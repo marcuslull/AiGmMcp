@@ -31,5 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### LOCAL APP ###
 /src/main/resources/ingestion/
 /src/main/resources/csvs/
+/src/main/resources/sqlscripts/

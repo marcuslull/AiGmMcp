@@ -15,6 +15,7 @@ import java.util.Map;
 @Service
 public class CsvParserService {
 
+    // TODO: figure out pathing once these are packaged
     private final Path TREASURE_TABLE_PATH = Paths.get("src/main/resources/csvs/treasureTable.csv");
     private final Path XP_BUDGET_PER_CHAR_TABLE_PATH = Paths.get("src/main/resources/csvs/xpBudgetPerChar.csv");
     private final Path XP_BY_CR_TABLE_PATH = Paths.get("src/main/resources/csvs/xpByCRTable.csv");
