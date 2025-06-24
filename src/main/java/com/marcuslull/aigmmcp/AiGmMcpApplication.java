@@ -10,6 +10,4 @@ public class AiGmMcpApplication {
         SpringApplication.run(AiGmMcpApplication.class, args);
     }
 
-
-
 }

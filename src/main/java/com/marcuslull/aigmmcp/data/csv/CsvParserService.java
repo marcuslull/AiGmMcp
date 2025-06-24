@@ -15,9 +15,9 @@ import java.util.Map;
 @Service
 public class CsvParserService {
 
-    private final Path TREASURE_TABLE_PATH = Paths.get("src/main/java/com/marcuslull/aigmmcp/data/csv/treasureTable.csv");
-    private final Path XP_BUDGET_PER_CHAR_TABLE_PATH = Paths.get("src/main/java/com/marcuslull/aigmmcp/data/csv/xpBudgetPerChar.csv");
-    private final Path XP_BY_CR_TABLE_PATH = Paths.get("src/main/java/com/marcuslull/aigmmcp/data/csv/xpByCRTable.csv");
+    private final Path TREASURE_TABLE_PATH = Paths.get("src/main/resources/csvs/treasureTable.csv");
+    private final Path XP_BUDGET_PER_CHAR_TABLE_PATH = Paths.get("src/main/resources/csvs/xpBudgetPerChar.csv");
+    private final Path XP_BY_CR_TABLE_PATH = Paths.get("src/main/resources/csvs/xpByCRTable.csv");
 
     private Map<Integer, List<String>> treasureTable;
     private Map<Integer, List<String>> xpBudgetPerCharTable;
