@@ -3,5 +3,5 @@
 * ~~Dice roller~~
 * ~~Random encounter generator~~
 * ~~Treasure generator~~
-* Weather forcast
+* Weather generator
 * Non-combat encounters

@@ -1,11 +1,12 @@
 package com.marcuslull.aigmmcp.data.csv;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -15,16 +16,21 @@ import java.util.Map;
 @Service
 public class CsvParserService {
 
-    // TODO: figure out pathing once these are packaged
-    private final Path TREASURE_TABLE_PATH = Paths.get("src/main/resources/csvs/treasureTable.csv");
-    private final Path XP_BUDGET_PER_CHAR_TABLE_PATH = Paths.get("src/main/resources/csvs/xpBudgetPerChar.csv");
-    private final Path XP_BY_CR_TABLE_PATH = Paths.get("src/main/resources/csvs/xpByCRTable.csv");
+    private final String TREASURE_TABLE_PATH = "classpath:csvs/treasureTable.csv";
+    private final String XP_BUDGET_PER_CHAR_TABLE_PATH = "classpath:csvs/xpBudgetPerChar.csv";
+    private final String XP_BY_CR_TABLE_PATH = "classpath:csvs/xpByCRTable.csv";
+
+    private final ResourceLoader resourceLoader;
 
     private Map<Integer, List<String>> treasureTable;
     private Map<Integer, List<String>> xpBudgetPerCharTable;
     private Map<Integer, Integer> xpByCrTable;
 
-   /**
+    public CsvParserService(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
+
+    /**
      * Retrieves the treasure table, parsing it from a CSV file if not already loaded.
      * <p>
      * This method implements a lazy loading pattern. On the first call, it reads the
@@ -51,11 +57,20 @@ public class CsvParserService {
 
         if (treasureTable != null) return treasureTable;
 
+        log.info("Attempting to load resource from: {}", TREASURE_TABLE_PATH);
+        Resource resource = resourceLoader.getResource(TREASURE_TABLE_PATH);
+        if (!resource.exists()) {
+            log.error("Ingestion resource not found: {}", TREASURE_TABLE_PATH);
+            return null;
+        }
+        log.info("Successfully loaded resource: {}", TREASURE_TABLE_PATH);
+
         log.info("Parsing {}", TREASURE_TABLE_PATH);
         Map<Integer, List<String>> tempTreasureTable = new HashMap<>();
 
-        try {
-            List<String> allLines = Files.readAllLines(TREASURE_TABLE_PATH);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
+
+            List<String> allLines = reader.lines().toList();
 
             if (allLines.size() != 11) {
                 log.error("{} is malformed", TREASURE_TABLE_PATH);
@@ -113,11 +128,20 @@ public class CsvParserService {
 
         if (xpBudgetPerCharTable != null) return xpBudgetPerCharTable;
 
+        log.info("Attempting to load resource from: {}", XP_BUDGET_PER_CHAR_TABLE_PATH);
+        Resource resource = resourceLoader.getResource(XP_BUDGET_PER_CHAR_TABLE_PATH);
+        if (!resource.exists()) {
+            log.error("Ingestion resource not found: {}", XP_BUDGET_PER_CHAR_TABLE_PATH);
+            return null;
+        }
+        log.info("Successfully loaded resource: {}", XP_BUDGET_PER_CHAR_TABLE_PATH);
+
         log.info("Parsing {}", XP_BUDGET_PER_CHAR_TABLE_PATH);
         Map<Integer, List<String>> tempXpBudgetPerCharTable = new HashMap<>();
 
-        try {
-            List<String> allLines = Files.readAllLines(XP_BUDGET_PER_CHAR_TABLE_PATH);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
+
+            List<String> allLines = reader.lines().toList();
 
             if (allLines.size() != 21) {
                 log.error("{} is malformed", XP_BUDGET_PER_CHAR_TABLE_PATH);
@@ -175,11 +199,20 @@ public class CsvParserService {
 
         if (xpByCrTable != null) return xpByCrTable;
 
+        log.info("Attempting to load resource from: {}", XP_BY_CR_TABLE_PATH);
+        Resource resource = resourceLoader.getResource(XP_BY_CR_TABLE_PATH);
+        if (!resource.exists()) {
+            log.error("Ingestion resource not found: {}", XP_BY_CR_TABLE_PATH);
+            return null;
+        }
+        log.info("Successfully loaded resource: {}", XP_BY_CR_TABLE_PATH);
+
         log.info("Parsing {}", XP_BY_CR_TABLE_PATH);
         Map<Integer, Integer> tempXpByCrTable = new HashMap<>();
 
-        try {
-            List<String> allLines = Files.readAllLines(XP_BY_CR_TABLE_PATH);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
+
+            List<String> allLines = reader.lines().toList();
 
             if (allLines.size() != 31) {
                 log.error("{} is malformed", XP_BY_CR_TABLE_PATH);
