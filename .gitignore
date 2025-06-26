@@ -35,3 +35,4 @@ build/
 ### LOCAL APP ###
 /src/main/resources/ingestion/
 /mcp-stdio-server.log
+/run.md
