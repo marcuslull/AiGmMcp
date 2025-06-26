@@ -19,7 +19,7 @@ public class Runner implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Map<Integer, List<String>> treasureTable = csvParserService.getTreasureTable();
         System.out.println("treasureTable = " + treasureTable);
 
