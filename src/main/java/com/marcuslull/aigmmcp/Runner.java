@@ -1,32 +1,35 @@
 package com.marcuslull.aigmmcp;
 
 import com.marcuslull.aigmmcp.data.csv.CsvParserService;
+import com.marcuslull.aigmmcp.data.vector.VectorIngestion;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Map;
 
 @Component
 @Profile("!pack")
 public class Runner implements CommandLineRunner {
 
     private final CsvParserService csvParserService;
+    private final VectorIngestion vectorIngestion;
 
-    public Runner(CsvParserService csvParserService) {
+    public Runner(CsvParserService csvParserService, VectorIngestion vectorIngestion) {
         this.csvParserService = csvParserService;
+        this.vectorIngestion = vectorIngestion;
     }
 
     @Override
     public void run(String... args) {
-        Map<Integer, List<String>> treasureTable = csvParserService.getTreasureTable();
-        System.out.println("treasureTable = " + treasureTable);
 
-        Map<Integer, List<String>> xpBudgetPerCharTable = csvParserService.getXpBudgetPerCharTable();
-        System.out.println("xpBudgetPerCharTable = " + xpBudgetPerCharTable);
+//        vectorIngestion.ingest("SRD_CC_v5.2.1.pdf", 0, "Official_Rules");
 
-        Map<Integer, Integer> xpByCrTable = csvParserService.getXpByCrTable();
-        System.out.println("xpByCrTable = " + xpByCrTable);
+//        Map<Integer, List<String>> treasureTable = csvParserService.getTreasureTable();
+//        System.out.println("treasureTable = " + treasureTable);
+//
+//        Map<Integer, List<String>> xpBudgetPerCharTable = csvParserService.getXpBudgetPerCharTable();
+//        System.out.println("xpBudgetPerCharTable = " + xpBudgetPerCharTable);
+//
+//        Map<Integer, Integer> xpByCrTable = csvParserService.getXpByCrTable();
+//        System.out.println("xpByCrTable = " + xpByCrTable);
     }
 }
