@@ -1,5 +1,6 @@
 package com.marcuslull.aigmmcp.config;
 
+import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResourceService;
 import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
 import com.marcuslull.aigmmcp.tools.randomencountergenerator.RandomEncounterGeneratorService;
 import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorService;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 @Configuration
 public class BeanStore {
+
 
     /**
      * Creates and configures a {@link VertexAiTextEmbeddingModel} bean.
@@ -73,40 +75,9 @@ public class BeanStore {
      * @return A list of configured {@link McpServerFeatures.SyncResourceSpecification} instances.
      */
     @Bean
-    public List<McpServerFeatures.SyncResourceSpecification> resources(
-//            ObjectMapper objectMapper
-            // TODO: inject resource service classes here. See tools() bean above for example.
-    ) {
-
-        // TODO: OPTION 1: get the specification from a service class injected above
-//        McpServerFeatures.SyncResourceSpecification specification = someResourceService.getTheSpecification();
-
-        // TODO: OPTION 2: declare the specification manually here.
-        // resource meta-data
-//        McpSchema.Resource systemInfoResource = new McpSchema.Resource(...
-//                // TODO: resource name "/resources/<resourceName>". This is the resources friendly name but should be structured
-//                // TODO: resource version "<dotted.notation.version.number>". arbitrary
-//                // TODO: input mimetype probs: "application/json"
-//        );
-//
-//        // resource logic
-//        McpServerFeatures.SyncResourceSpecification resourceSpecification = // TODO: rename this var to an appropriate name for the resource
-//                new McpServerFeatures.SyncResourceSpecification(systemInfoResource, (exchange, request) -> {
-//            try {
-//                var systemInfo = Map.of(...); // TODO: This is the actual MAP<> returned by the resource
-//                String jsonContent = objectMapper.writeValueAsString(systemInfo);
-//                return new McpSchema.ReadResourceResult(
-//                        List.of(new McpSchema.TextResourceContents(request.uri(), "application/json", jsonContent))
-//                );
-//            } catch (JsonProcessingException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
-
-        // declare more resource meta/logic combos as above ...
-
-        // TODO: update this list with the resource specification declared or retrieved above.
-        return List.of();
+    public List<McpServerFeatures.SyncResourceSpecification> resources(VectorDbResourceService vectorDbResourceService) {
+        McpServerFeatures.SyncResourceSpecification specification = vectorDbResourceService.getResourceSpecification();
+        return List.of(specification);
     }
 
     @Bean

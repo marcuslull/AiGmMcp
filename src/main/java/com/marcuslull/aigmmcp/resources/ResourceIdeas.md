@@ -1,9 +1,4 @@
 # Resource Ideas
 
-* ~~Rules vector~~
-* Documentation (rules, world-building, etc...)
-* Campaign configurations (configurations for this campaign)
-* Spell table
-* Monster table
-* Items table
-* Treasure table
+* ~~Vector DB, read-only for unstructured documents and text~~
+* SQL DB, read-only for structured data

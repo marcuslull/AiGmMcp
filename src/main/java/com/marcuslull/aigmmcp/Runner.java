@@ -2,6 +2,8 @@ package com.marcuslull.aigmmcp;
 
 import com.marcuslull.aigmmcp.data.csv.CsvParserService;
 import com.marcuslull.aigmmcp.data.vector.VectorIngestion;
+import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResourceService;
+import io.modelcontextprotocol.server.McpServerFeatures;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -12,10 +14,12 @@ public class Runner implements CommandLineRunner {
 
     private final CsvParserService csvParserService;
     private final VectorIngestion vectorIngestion;
+    private final VectorDbResourceService vectorDbResourceService;
 
-    public Runner(CsvParserService csvParserService, VectorIngestion vectorIngestion) {
+    public Runner(CsvParserService csvParserService, VectorIngestion vectorIngestion, VectorDbResourceService vectorDbResourceService) {
         this.csvParserService = csvParserService;
         this.vectorIngestion = vectorIngestion;
+        this.vectorDbResourceService = vectorDbResourceService;
     }
 
     @Override
@@ -31,5 +35,7 @@ public class Runner implements CommandLineRunner {
 //
 //        Map<Integer, Integer> xpByCrTable = csvParserService.getXpByCrTable();
 //        System.out.println("xpByCrTable = " + xpByCrTable);
+
+//        McpServerFeatures.SyncResourceSpecification resourceSpecification = vectorDbResourceService.getResourceSpecification();
     }
 }

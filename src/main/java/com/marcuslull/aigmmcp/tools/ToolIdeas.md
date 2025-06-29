@@ -5,3 +5,5 @@
 * ~~Treasure generator~~
 * Weather generator
 * Non-combat encounters
+* Vector filtered search
+* SQL table query
