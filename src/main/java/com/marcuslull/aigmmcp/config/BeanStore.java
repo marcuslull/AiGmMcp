@@ -4,6 +4,7 @@ import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResourceService;
 import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
 import com.marcuslull.aigmmcp.tools.randomencountergenerator.RandomEncounterGeneratorService;
 import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorService;
+import com.marcuslull.aigmmcp.tools.unstructuredsearch.UnstructuredSearchService;
 import io.modelcontextprotocol.server.McpServerFeatures;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
@@ -59,9 +60,10 @@ public class BeanStore {
     public ToolCallbackProvider tools(
             DiceRollerService diceRollerService,
             TreasureGeneratorService treasureGeneratorService,
-            RandomEncounterGeneratorService randomEncounterGeneratorService
+            RandomEncounterGeneratorService randomEncounterGeneratorService,
+            UnstructuredSearchService unstructuredSearchService
     ) {
-        return MethodToolCallbackProvider.builder().toolObjects(diceRollerService, treasureGeneratorService, randomEncounterGeneratorService).build();
+        return MethodToolCallbackProvider.builder().toolObjects(diceRollerService, treasureGeneratorService, randomEncounterGeneratorService, unstructuredSearchService).build();
     }
 
     /**
