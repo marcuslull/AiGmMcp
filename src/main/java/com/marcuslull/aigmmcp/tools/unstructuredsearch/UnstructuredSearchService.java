@@ -1,7 +1,7 @@
 package com.marcuslull.aigmmcp.tools.unstructuredsearch;
 
 import com.marcuslull.aigmmcp.data.vector.VectorQuery;
-import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResourceService;
+import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
@@ -12,11 +12,11 @@ import java.util.Map;
 @Service
 public class UnstructuredSearchService {
 
-    private final VectorDbResourceService vectorDbResourceService;
+    private final VectorDbResource vectorDbResource;
     private final VectorQuery vectorQuery;
 
-    public UnstructuredSearchService(VectorDbResourceService vectorDbResourceService, VectorQuery vectorQuery) {
-        this.vectorDbResourceService = vectorDbResourceService;
+    public UnstructuredSearchService(VectorDbResource vectorDbResource, VectorQuery vectorQuery) {
+        this.vectorDbResource = vectorDbResource;
         this.vectorQuery = vectorQuery;
     }
 
@@ -32,14 +32,14 @@ public class UnstructuredSearchService {
      *
      * @return A {@link Map} containing details about the vector database, including available filters,
      *         access rights, and the current set of publications, tags, and sessions.
-     * @see com.marcuslull.aigmmcp.resources.vectordb.VectorDbResourceService#buildResourceDetails()
+     * @see VectorDbResource#buildResourceDetails()
      */
     @Tool(name = "VectorDbResource", description = "Get current information about the vector database, including available filters for searching.")
     public Map<String, Object> getCurrentVectorDBInformation() {
 
         log.info("VectorDbResource Tool invoked to get current Vector DB information");
         // This is a workaround tool because ADK does not support MCP resources
-        return vectorDbResourceService.buildResourceDetails();
+        return vectorDbResource.buildResourceDetails();
     }
 
 

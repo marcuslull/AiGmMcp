@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class VectorDbResourceService {
+public class VectorDbResource {
 
     private final String AVAILABLE_FILTERS = "[\"Session\", \"Source\", \"Tag\"]. Session - The game session number (0 is reserved for non session related content). Source - The publication title or document name. Tag - The friendly reference tag.";
     private final String TOOLS = "[\"VectorDbFilteredSearch\"]";
@@ -30,7 +30,7 @@ public class VectorDbResourceService {
     private final VectorQuery vectorQuery;
     private final ObjectMapper objectMapper;
 
-    public VectorDbResourceService(VectorQuery vectorQuery, ObjectMapper objectMapper) {
+    public VectorDbResource(VectorQuery vectorQuery, ObjectMapper objectMapper) {
         this.vectorQuery = vectorQuery;
         this.objectMapper = objectMapper;
     }

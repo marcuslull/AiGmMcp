@@ -2,8 +2,7 @@ package com.marcuslull.aigmmcp;
 
 import com.marcuslull.aigmmcp.data.csv.CsvParserService;
 import com.marcuslull.aigmmcp.data.vector.VectorIngestion;
-import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResourceService;
-import io.modelcontextprotocol.server.McpServerFeatures;
+import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResource;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -14,18 +13,18 @@ public class Runner implements CommandLineRunner {
 
     private final CsvParserService csvParserService;
     private final VectorIngestion vectorIngestion;
-    private final VectorDbResourceService vectorDbResourceService;
+    private final VectorDbResource vectorDbResource;
 
-    public Runner(CsvParserService csvParserService, VectorIngestion vectorIngestion, VectorDbResourceService vectorDbResourceService) {
+    public Runner(CsvParserService csvParserService, VectorIngestion vectorIngestion, VectorDbResource vectorDbResource) {
         this.csvParserService = csvParserService;
         this.vectorIngestion = vectorIngestion;
-        this.vectorDbResourceService = vectorDbResourceService;
+        this.vectorDbResource = vectorDbResource;
     }
 
     @Override
     public void run(String... args) {
 
-//        vectorIngestion.ingest("SRD_CC_v5.2.1.pdf", 0, "Official_Rules");
+//        vectorIngestion.ingest("Curse_of_Strahd_Introductory_Adventure.pdf", 0, "Adventure");
 
 //        Map<Integer, List<String>> treasureTable = csvParserService.getTreasureTable();
 //        System.out.println("treasureTable = " + treasureTable);

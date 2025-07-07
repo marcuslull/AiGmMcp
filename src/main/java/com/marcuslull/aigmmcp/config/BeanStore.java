@@ -1,6 +1,6 @@
 package com.marcuslull.aigmmcp.config;
 
-import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResourceService;
+import com.marcuslull.aigmmcp.resources.vectordb.VectorDbResource;
 import com.marcuslull.aigmmcp.tools.diceroller.DiceRollerService;
 import com.marcuslull.aigmmcp.tools.randomencountergenerator.RandomEncounterGeneratorService;
 import com.marcuslull.aigmmcp.tools.treasuregenerator.TreasureGeneratorService;
@@ -77,8 +77,8 @@ public class BeanStore {
      * @return A list of configured {@link McpServerFeatures.SyncResourceSpecification} instances.
      */
     @Bean
-    public List<McpServerFeatures.SyncResourceSpecification> resources(VectorDbResourceService vectorDbResourceService) {
-        McpServerFeatures.SyncResourceSpecification specification = vectorDbResourceService.getResourceSpecification();
+    public List<McpServerFeatures.SyncResourceSpecification> resources(VectorDbResource vectorDbResource) {
+        McpServerFeatures.SyncResourceSpecification specification = vectorDbResource.getResourceSpecification();
         return List.of(specification);
     }
 
